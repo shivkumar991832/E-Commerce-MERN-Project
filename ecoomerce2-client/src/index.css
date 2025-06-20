@@ -1,0 +1,40 @@
+/* for outfit and prata font */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import "tailwindcss";
+
+/* active is clssNamne of NavLink(a) */
+a.active hr {
+  display: block;
+}
+
+/* for all HTML element */
+*{
+  font-family: Outfit;
+}
+
+.prata-regular {
+  font-family: "Prata", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* hide image scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  a.active {
+     background-color: black;
+     color : white;
+  }
+}
+
+
+ /* a.active {
+     background-color: black;
+     color : white;
+  } */
+
+
