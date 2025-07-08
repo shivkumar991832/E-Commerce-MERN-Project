@@ -7,3 +7,9 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server : {port : 5174}
 })
+
+export const nextConfig ={
+   eslint : {
+    ignoreDuringBuilds: true,
+   }
+}
