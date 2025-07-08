@@ -8,8 +8,3 @@ export default defineConfig({
   server : {port : 5174}
 })
 
-export const nextConfig ={
-   eslint : {
-    ignoreDuringBuilds: true,
-   }
-}
