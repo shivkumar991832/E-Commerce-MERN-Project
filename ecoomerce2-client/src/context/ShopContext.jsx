@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-
+import axios from 'axios';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -60,6 +60,18 @@ const ShopContextProvider = ({children}) => {
         }
         setCartItems(cartData);
         
+        //if user logged in then we will save the cartItems in database
+        if(token) {
+            try {
+                await axios.post(backendURL + '/api/cart/add', {itemId, size}, {
+                    headers : {token}
+                } )
+
+            } catch (error) {
+                console.log(error)
+                toast.error(error.message)
+            }
+        }
     }
 
     //Created logic for get totalCount for added cart
@@ -87,6 +99,19 @@ const ShopContextProvider = ({children}) => {
          let cartData = structuredClone(cartItems)
          cartData[itemId][size] = quantity;
          setCartItems(cartData);
+
+         //update in database
+         if (token) {
+            try {
+                await axios.post(backendURL + '/api/cart/update', {itemId , size , quantity}, {
+                    headers : {token}
+                })
+            } catch (error) {
+                console.log(error)
+                toast.error(error.message)
+            }
+            
+         }
     }
 
 
@@ -134,9 +159,39 @@ const ShopContextProvider = ({children}) => {
     }
 
 
+    //function to get cart items from database(important)
+    const getUserCartItems = async (token) => {
+         try {
+            const response = await axios.post(backendURL + '/api/cart/get', {} ,{
+                headers : {token}
+            })
+            if (response.data.success) {
+                setCartItems(response.data.cartData)
+            }
+         } catch (error) {
+            console.log(error)
+            toast.error(error.message)
+         }
+    }
+
+
     useEffect(()=>{
         getProductsData()
     },[])
+
+
+    useEffect(() => {
+        //reload karne par logout nhi hoga(token remove nhi hoga)
+        // we save the token in token variable and also in localStorage
+       if (!token && localStorage.getItem('token') ) {
+          setToken(localStorage.getItem('token'))
+
+          //call the function to get cart items from database when page reload
+
+          getUserCartItems(localStorage.getItem('token'))
+       }
+    }, [])
+    
 
 
 
@@ -149,7 +204,7 @@ const ShopContextProvider = ({children}) => {
 
 
     const value = {
-          products, currency, delivery_fees, search, setSearch, showSearch, setShowSearch, addToCart, cartItems, getCartCount, updateQuantity, getCartAmount,
+          products, currency, delivery_fees, search, setSearch, showSearch, setShowSearch, addToCart, cartItems, setCartItems, getCartCount, updateQuantity, getCartAmount,
           navigate, backendURL, token, setToken
     }
 
