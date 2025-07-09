@@ -170,7 +170,7 @@ const ShopContextProvider = ({children}) => {
             }
          } catch (error) {
             console.log(error)
-            toast.error(error.message)
+            toast.error("Not authorized user, Please login first")
          }
     }
 
