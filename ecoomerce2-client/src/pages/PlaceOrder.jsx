@@ -164,7 +164,7 @@ const PlaceOrder = () => {
 
         } catch (error) {
            console.log(error)
-           toast.error(error.message)
+           toast.error("Please Login First")
         }
   }
  
