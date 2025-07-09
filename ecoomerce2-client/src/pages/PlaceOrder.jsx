@@ -123,7 +123,8 @@ const PlaceOrder = () => {
                          setCartItems({}) //clear cart
                          navigate('/orders')
                     }else {
-                         toast.error(response.data.message)
+                         // toast.error(response.data.message)
+                          toast.error("Not Authuorize User, Please Login First")
                     }
                
                     break;
@@ -141,7 +142,8 @@ const PlaceOrder = () => {
                     window.location.replace(session_url)
 
                  }else {
-                    toast.error(responseStripe.data.message)
+                    // toast.error(responseStripe.data.message)
+                     toast.error("Not Authuorize User, Please Login First")
                  }
 
                  break;
@@ -164,7 +166,7 @@ const PlaceOrder = () => {
 
         } catch (error) {
            console.log(error)
-           toast.error("Please Login First")
+            toast.error("Not Authuorize User, Please Login First")
         }
   }
  
