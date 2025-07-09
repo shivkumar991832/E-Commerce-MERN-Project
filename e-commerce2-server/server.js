@@ -28,7 +28,7 @@ connectCloudinary()
 // middleware
 app.use(express.json()) //data parse into json
 app.use(cors({
-  origin : ["http://localhost:4000", "https://e-commerce-frontend-opal-tau.vercel.app/"]
+  origin : ["http://localhost:4000", "https://e-commerce-frontend-opal-tau.vercel.app"]
 }))
 
 
