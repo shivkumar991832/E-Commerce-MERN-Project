@@ -27,7 +27,9 @@ connectCloudinary()
 
 // middleware
 app.use(express.json()) //data parse into json
-app.use(cors())
+app.use(cors({
+  origin : ["http://localhost:5000", "https://forever-project.netlify.app"]
+}))
 
 
 
